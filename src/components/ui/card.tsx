@@ -1,92 +1,37 @@
-import * as React from "react"
+import React from 'react';
+import { twMerge } from 'tailwind-merge';
 
-import { cn } from "@/lib/utils"
+// ===============================
+//  Card Component (Simplified) - Themed
+// ===============================
+const Card = ({ children, className, ...props }: { children: React.ReactNode; className?: string; [key: string]: any; }) => {
+    const baseClasses = "bg-white/80 backdrop-blur-md rounded-md shadow-lg border border-blue-200/50"; // Light theme
+    const combinedClasses = twMerge(baseClasses, className);
+    return <div className={combinedClasses} {...props}>{children}</div>;
+};
 
-function Card({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card"
-      className={cn(
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+const CardHeader = ({ children, className, ...props }: { children: React.ReactNode; className?: string; [key: string]: any; }) => {
+    const baseClasses = "p-6";
+    const combinedClasses = twMerge(baseClasses, className);
+    return <div className={combinedClasses} {...props}>{children}</div>;
+};
 
-function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-header"
-      className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
-        className
-      )}
-      {...props}
-    />
-  )
-}
+const CardTitle = ({ children, className, ...props }: { children: React.ReactNode; className?: string; [key: string]: any; }) => {
+    const baseClasses = "text-xl font-semibold text-blue-600";  // Light blue
+    const combinedClasses = twMerge(baseClasses, className);
+    return <h1 className={combinedClasses} {...props}>{children}</h1>;
+};
 
-function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-title"
-      className={cn("leading-none font-semibold", className)}
-      {...props}
-    />
-  )
-}
+const CardDescription = ({ children, className, ...props }: { children: React.ReactNode; className?: string; [key: string]: any; }) => {
+    const baseClasses = "text-gray-500";
+    const combinedClasses = twMerge(baseClasses, className);
+    return <p className={combinedClasses} {...props}>{children}</p>;
+};
 
-function CardDescription({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-description"
-      className={cn("text-muted-foreground text-sm", className)}
-      {...props}
-    />
-  )
-}
+const CardContent = ({ children, className, ...props }: { children: React.ReactNode; className?: string; [key: string]: any; }) => {
+    const baseClasses = "p-6 space-y-4";
+    const combinedClasses = twMerge(baseClasses, className);
+    return <div className={combinedClasses} {...props}>{children}</div>;
+};
 
-function CardAction({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-action"
-      className={cn(
-        "col-start-2 row-span-2 row-start-1 self-start justify-self-end",
-        className
-      )}
-      {...props}
-    />
-  )
-}
-
-function CardContent({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-content"
-      className={cn("px-6", className)}
-      {...props}
-    />
-  )
-}
-
-function CardFooter({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="card-footer"
-      className={cn("flex items-center px-6 [.border-t]:pt-6", className)}
-      {...props}
-    />
-  )
-}
-
-export {
-  Card,
-  CardHeader,
-  CardFooter,
-  CardTitle,
-  CardAction,
-  CardDescription,
-  CardContent,
-}
+export { Card, CardHeader, CardTitle, CardDescription, CardContent };

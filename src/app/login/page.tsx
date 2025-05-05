@@ -1,17 +1,39 @@
-import LoginForm  from "@/features/auth/components/LoginForm";
-import { Metadata } from "next";
+import React from 'react';
+import { Metadata } from 'next';
+// Assumed path, adjust as necessary
+import Login from './login';
 
+export const metadata: Metadata = {
+    title: "Login to Zenith HR",
+    description: "Login to your Zenith HR account to manage your human resources.",
+    keywords: [
+        "HRM",
+        "HRMS",
+        "Human Resources",
+        "Login",
+        "Employee Management",
+        "Zenith HR",
+    ],
+    openGraph: {
+        title: "Login to Zenith HR",
+        description: "Login to your Zenith HR account to manage your human resources.",
+        url: "/",
+        images: [
+            {
+                url: "/og-image.png",
+                width: 800,
+                height: 600,
+            },
+        ],
+    },
+};
 
-export default function LoginPage() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-6 bg-gray-50">
-      <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-blue-600">HRMS My me</h1>
-          <p className="text-gray-600">Point of Human System</p>
-        </div>
-        <LoginForm />
-      </div>
-    </main>
-  );
-}
+const LoginPage = () => {
+    return (
+        <main className="min-h-screen w-full bg-gray-50">
+            <Login />
+        </main>
+    );
+};
+
+export default LoginPage;
