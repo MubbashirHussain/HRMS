@@ -46,4 +46,4 @@ import { twMerge } from "tailwind-merge";
 };
 
 
-export default Button
+export {Button}

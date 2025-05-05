@@ -1,44 +1,48 @@
-"use client"
-import React, { useState } from 'react';
-import { Input } from "@/components/ui/base/input"
-import { Label } from "@/components/ui/base/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/base/card"
-import { twMerge } from 'tailwind-merge';
-import Button from '@/components/ui/base/button';
+"use client";
+import React, { useState } from "react";
+import { Input } from "@/components/ui/base/input";
+import { Label } from "@/components/ui/base/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/base/card";
+import { twMerge } from "tailwind-merge";
+import { Button } from "@/components/ui/base/button";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     // Simulate an authentication delay
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       if (username && password) {
-          // In a real app, you'd make an API call here.
-          console.log('Logging in with:', { username, password });
-          // For this example, we'll just simulate success.
-          // Replace this with your actual authentication logic
-          if (username === 'admin' && password === 'password') {
-            // Redirect to a dashboard or main page upon successful login
-             window.location.href = '/dashboard'; //  Replace '/dashboard'
-          }
-          else{
-             setError('Invalid credentials. Please try again.');
-          }
-
+        // In a real app, you'd make an API call here.
+        console.log("Logging in with:", { username, password });
+        // For this example, we'll just simulate success.
+        // Replace this with your actual authentication logic
+        if (username === "admin" && password === "password") {
+          // Redirect to a dashboard or main page upon successful login
+          window.location.href = "/dashboard"; //  Replace '/dashboard'
+        } else {
+          setError("Invalid credentials. Please try again.");
+        }
       } else {
-        setError('Please fill in all fields.');
+        setError("Please fill in all fields.");
       }
     } catch (err) {
-      setError('An error occurred. Please try again.');
+      setError("An error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -46,9 +50,7 @@ const LoginPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-white flex items-center justify-center p-4">
-      <div
-        className="w-full max-w-md"
-      >
+      <div className="w-full max-w-md">
         <Card
           className={twMerge(
             "bg-white/80 backdrop-blur-md border border-blue-200/50",
@@ -57,7 +59,6 @@ const LoginPage = () => {
         >
           <CardHeader className="text-center">
             <CardTitle className="text-2xl font-semibold text-blue-600 flex items-center justify-center gap-2">
-
               Login to Zenith HR
             </CardTitle>
             <CardDescription className="text-gray-500">
@@ -67,8 +68,10 @@ const LoginPage = () => {
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="username" className="text-blue-700 flex items-center gap-1.5">
-
+                <Label
+                  htmlFor="username"
+                  className="text-blue-700 flex items-center gap-1.5"
+                >
                   Username
                 </Label>
                 <Input
@@ -86,8 +89,10 @@ const LoginPage = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-blue-700 flex items-center gap-1.5">
-
+                <Label
+                  htmlFor="password"
+                  className="text-blue-700 flex items-center gap-1.5"
+                >
                   Password
                 </Label>
                 <Input
@@ -104,13 +109,7 @@ const LoginPage = () => {
                   disabled={loading}
                 />
               </div>
-              {error && (
-                <p
-                  className="text-red-500 text-sm"
-                >
-                  {error}
-                </p>
-              )}
+              {error && <p className="text-red-500 text-sm">{error}</p>}
               <Button
                 type="submit"
                 className={twMerge(
@@ -145,7 +144,7 @@ const LoginPage = () => {
                     Logging in...
                   </>
                 ) : (
-                  'Login'
+                  "Login"
                 )}
               </Button>
             </form>
