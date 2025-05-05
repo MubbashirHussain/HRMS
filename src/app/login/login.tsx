@@ -1,10 +1,10 @@
 "use client"
 import React, { useState } from 'react';
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/base/input"
+import { Label } from "@/components/ui/base/label"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/base/card"
 import { twMerge } from 'tailwind-merge';
-import Button from '@/components/ui/button';
+import Button from '@/components/ui/base/button';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
