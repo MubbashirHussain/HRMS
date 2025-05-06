@@ -1,6 +1,28 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+'use client'
+import React, {  useState, useEffect, useCallback, useRef, Children } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { motion, AnimatePresence } from 'framer-motion';
+
+
+type SheetSide = 'left' | 'right' | 'top' | 'bottom';
+
+interface SheetProps {
+    children: React.ReactNode;
+    open?: boolean;
+    onOpenChange?: (open: boolean) => void;
+}
+
+interface SheetContentProps {
+    children: ((props: { onClose: () => void }) => React.ReactNode) | React.ReactNode;
+    onOpenChange: (open: boolean) => void;
+    side?: SheetSide;
+    className?: string;
+}
+
+interface SheetTriggerProps {
+    children: React.ReactNode;
+    asChild?: boolean;
+}
 
 // ===============================
 // Sheet Components
@@ -10,12 +32,9 @@ const Sheet = ({
     children,
     open,
     onOpenChange,
-}: {
-    children: React.ReactNode;
-    open?: boolean;
-    onOpenChange?: (open: boolean) => void;
-}) => {
+}: SheetProps) => {
     const [isOpen, setIsOpen] = useState(open ?? false);
+    const sheetRef = useRef<HTMLDivElement>(null); // Ref for the Sheet component
 
     // Update internal state when 'open' prop changes
     useEffect(() => {
@@ -24,13 +43,25 @@ const Sheet = ({
         }
     }, [open]);
 
-    const handleOpenChange = (newOpen: boolean) => {
+    const handleOpenChange = useCallback((newOpen: boolean) => {
         setIsOpen(newOpen);
         onOpenChange?.(newOpen);
-    };
+    }, [onOpenChange]);
+
+    // Make handleOpenChange available to child components.  Crucial for trigger.
+    useEffect(() => {
+        if (sheetRef.current) {
+            (sheetRef.current as any).handleOpenChange = handleOpenChange;
+        }
+        return () => {
+            if (sheetRef.current) {
+                delete (sheetRef.current as any).handleOpenChange;
+            }
+        };
+    }, [handleOpenChange]);
 
     return (
-        <>
+        <div ref={sheetRef} data-sheet="true">  {/* Ref and data-sheet attribute */}
             {children}
             {isOpen && (
                 <div
@@ -38,7 +69,7 @@ const Sheet = ({
                     onClick={() => handleOpenChange(false)}
                 />
             )}
-            <AnimatePresence>
+            {/* <AnimatePresence>
                 {isOpen && (
                     <SheetContent
                         onOpenChange={handleOpenChange}
@@ -46,8 +77,8 @@ const Sheet = ({
                         {children}
                     </SheetContent>
                 )}
-            </AnimatePresence>
-        </>
+            </AnimatePresence> */}
+        </div>
     );
 };
 
@@ -56,16 +87,16 @@ const SheetContent = ({
     onOpenChange,
     side = 'left', // Added side prop with default value
     className,
-}: {
-    children: React.ReactNode;
-    onOpenChange: (open: boolean) => void;
-    side?: 'left' | 'right' | 'top' | 'bottom'; // Added side type
-    className?: string;
-}) => {
+}: SheetContentProps) => {
     const horizontal = side === 'left' || side === 'right';
     const initial = horizontal ? { x: side === 'left' ? '-100%' : '100%', y: 0 } : { x: 0, y: side === 'top' ? '-100%' : '100%' };
     const animate = { x: 0, y: 0 };
     const exit = horizontal ? { x: side === 'left' ? '-100%' : '100%', y: 0 } : { x: 0, y: side === 'top' ? '-100%' : '100%' };
+
+    // Function to handle close, ensuring onOpenChange is called.
+    const handleClose = useCallback(() => {
+        onOpenChange(false);
+    }, [onOpenChange]);
 
     return (
         <motion.div
@@ -83,8 +114,11 @@ const SheetContent = ({
                 "shadow-lg",
                 className
             )}
+            // Pass handleClose to children.
+            data-testid="sheet-content"
         >
-            {children}
+            {/* Make sure children can access the close handler. */}
+            {typeof children === 'function' ? children({ onClose: handleClose }) : children}
         </motion.div>
     );
 };
@@ -92,73 +126,37 @@ const SheetContent = ({
 const SheetTrigger = ({
     children,
     asChild,
-}: {
-    children: React.ReactNode;
-    asChild?: boolean;
-}) => {
+}: SheetTriggerProps) => {
+    const triggerRef = useRef<HTMLDivElement>(null);
+
+    // Use useCallback for the onClick handler
+    const handleClick = useCallback(() => {
+        let current: HTMLElement | null = triggerRef.current;
+        while (current) {
+            if (current.getAttribute('data-sheet') === 'true') {
+                const sheetElement = current;
+                if (sheetElement && (sheetElement as any).handleOpenChange) {
+                    (sheetElement as any).handleOpenChange(true);
+                }
+                break;
+            }
+            current = current.parentElement as HTMLElement | null;
+        }
+    }, []);
+
     if (asChild) {
         return <>{children}</>;
     }
     return (
         <div
-            onClick={() => {
-                // Find the closest Sheet component and trigger its open state
-                let current: HTMLElement | null = document.activeElement as HTMLElement | null;
-                while (current) {
-                    if (current.getAttribute('data-sheet') === 'true') {
-                        //  (current as any).handleOpenChange(true); // removed direct access
-                        const sheetElement = current.closest('[data-sheet]'); // Find the sheet
-                        if (sheetElement && (sheetElement as any).handleOpenChange) {
-                            (sheetElement as any).handleOpenChange(true);
-                        }
-                        break;
-                    }
-                    current = current.parentElement as HTMLElement | null; // Add type assertion here
-                }
-            }}
+            ref={triggerRef}
+            onClick={handleClick}
+            data-trigger="true" //Add data-trigger
         >
             {children}
         </div>
     );
 };
 
-// ===============================
-// ScrollArea Component
-// ===============================
+export { Sheet, SheetContent, SheetTrigger };
 
-const ScrollArea = forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ className, children, ...props }, ref) => (
-    <div
-        ref={ref}
-        className={twMerge('relative overflow-hidden', className)}
-        {...props}
-    >
-        <div className="relative h-full w-full overflow-y-auto overflow-x-hidden">
-            {children}
-        </div>
-    </div>
-));
-ScrollArea.displayName = 'ScrollArea';
-
-// ===============================
-// Separator Component
-// ===============================
-
-const Separator = forwardRef<
-    HTMLDivElement,
-    React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
-    <div
-        ref={ref}
-        className={twMerge(
-            'bg-gray-200 dark:bg-gray-800 h-[1px] w-full',
-            className
-        )}
-        {...props}
-    />
-));
-Separator.displayName = 'Separator';
-
-export { Sheet, SheetContent, SheetTrigger, ScrollArea, Separator };
