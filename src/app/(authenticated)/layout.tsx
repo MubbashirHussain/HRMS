@@ -481,7 +481,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       </motion.div>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-auto bg-blue-50/50">{children}</div>
+      <div className="flex-1 overflow-auto bg-gradient-to-br from-blue-100 to-white ">{children}</div>
 
       {/* Confirmation Dialog */}
       <AnimatePresence>
