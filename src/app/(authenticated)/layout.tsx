@@ -14,6 +14,7 @@ import {
     ListChecks,
     AlertTriangle,
     CheckCircle,
+    LucideCalendarX,
 } from "lucide-react";
 import { Button } from "@/components/ui/base/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/base/sheet";
@@ -71,6 +72,11 @@ const navConfig: NavItem[] = [
         name: "Employees",
         navigateTo: "/employees",
         icon: <Users className="w-4 h-4 text-blue-500" />,
+    },
+    {
+        name: "Leaves",
+        navigateTo: "/leaves",
+        icon: <LucideCalendarX className="w-4 h-4 text-blue-500" />,
     },
     {
         name: "Reports",
