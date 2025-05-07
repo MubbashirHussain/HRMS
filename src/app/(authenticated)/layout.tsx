@@ -15,6 +15,8 @@ import {
     AlertTriangle,
     CheckCircle,
     LucideCalendarX,
+    CalendarDays,
+    Coins,
 } from "lucide-react";
 import { Button } from "@/components/ui/base/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/base/sheet";
@@ -76,17 +78,17 @@ const navConfig: NavItem[] = [
     {
         name: "Leaves",
         navigateTo: "/leaves",
-        icon: <LucideCalendarX className="w-4 h-4 text-blue-500" />,
+        icon: <CalendarDays className="w-4 h-4 text-blue-500" />, // Changed from LucideCalendarX
     },
     {
         name: "Payrolls",
         navigateTo: "/payrolls",
-        icon: <LucideCalendarX className="w-4 h-4 text-blue-500" />,
+        icon: <Coins className="w-4 h-4 text-blue-500" />, // Changed from LucideCalendarX
     },
     {
         name: "Announcements",
         navigateTo: "/announcements",
-        icon: <LucideCalendarX className="w-4 h-4 text-blue-500" />,
+        icon: <FileText className="w-4 h-4 text-blue-500" />, // Changed from LucideCalendarX
     },
     {
         name: "Settings",
