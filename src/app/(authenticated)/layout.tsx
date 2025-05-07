@@ -89,30 +89,6 @@ const navConfig: NavItem[] = [
         icon: <LucideCalendarX className="w-4 h-4 text-blue-500" />,
     },
     {
-        name: "Reports",
-        navigateTo: "/reports",
-        icon: <FileText className="w-4 h-4 text-blue-500" />,
-        isCollapsible: true,
-        children: [
-            { name: "Attendance", navigateTo: "/reports/attendance" },
-            { name: "Payroll", navigateTo: "/reports/payroll" },
-        ],
-        isDisabled: false,
-        isNavigateDisable: true, // Added
-    },
-    {
-        name: "Tasks",
-        navigateTo: "/tasks",
-        icon: <ListChecks className="w-4 h-4 text-blue-500" />,
-        isCollapsible: true,
-        children: [
-            { name: "My Tasks", navigateTo: "/tasks/my-tasks" },
-            { name: "All Tasks", navigateTo: "/tasks/all-tasks" },
-        ],
-        isDisabled: false,
-        isNavigateDisable: true, // Added
-    },
-    {
         name: "Settings",
         navigateTo: "/settings",
         icon: <Settings className="w-4 h-4 text-blue-500" />,
