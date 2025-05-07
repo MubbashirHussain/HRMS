@@ -79,6 +79,11 @@ const navConfig: NavItem[] = [
         icon: <LucideCalendarX className="w-4 h-4 text-blue-500" />,
     },
     {
+        name: "Payrolls",
+        navigateTo: "/payrolls",
+        icon: <LucideCalendarX className="w-4 h-4 text-blue-500" />,
+    },
+    {
         name: "Reports",
         navigateTo: "/reports",
         icon: <FileText className="w-4 h-4 text-blue-500" />,
