@@ -1,23 +1,95 @@
-import * as React from "react";
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-import { twMerge } from "tailwind-merge";
+interface Props extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+    label?: string;
+    placeholder?: string;
+    labelClassName?: string;
+    className?: string;
+    required?: boolean;
+    name?: string;
+    initialValue?: string;
+    value?: string;
+    disabled?: boolean;
+    onChange?: (event: ChangeEvent<HTMLTextAreaElement>) => void;
+    readOnly?: boolean;
+    rows?: number;
+    error?: string; // Added error prop
+}
 
-export type TextareaProps = React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+const Textarea: React.FC<Props> = ({
+    label,
+    placeholder,
+    labelClassName,
+    className,
+    name,
+    required = false,
+    initialValue = '',
+    value = '',
+    disabled,
+    onChange,
+    readOnly,
+    rows = 3,
+    error,
+    ...props
+}) => {
+    const [inputValue, setInputValue] = useState(initialValue);
 
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
-  ({ className, ...props }, ref) => {
+    useEffect(() => {
+        setInputValue(initialValue);
+    }, [initialValue]);
+
+    useEffect(() => {
+        setInputValue(value);
+    }, [value]);
+
+    const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setInputValue(event.target.value);
+        onChange?.(event);
+    };
+
     return (
-      <textarea
-        className={twMerge(
-          "flex min-h-[80px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
+        <div className="relative w-full">
+            {label && (
+                <label
+                    className={twMerge(
+                        'block text-sm font-medium mb-2 transition-colors',
+                        required && "after:content-['*'] after:text-red-500 after:ml-1",
+                        labelClassName,
+                        error ? 'text-red-500' : 'text-gray-700 dark:text-gray-300', // Added error color
+                    )}
+                >
+                    {label}
+                </label>
+            )}
+            <textarea
+                name={name}
+                value={inputValue}
+                onChange={handleChange}
+                required={required}
+                disabled={disabled}
+                readOnly={readOnly}
+                rows={rows}
+                placeholder={placeholder}
+                className={twMerge(
+                    'block w-full px-3 py-2 border rounded-md shadow-sm transition-all duration-300',
+                    'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent',
+                    disabled
+                        ? 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                        : 'bg-white dark:bg-gray-800 text-gray-900 dark:text-white',
+                    error
+                        ? 'border-red-500 focus:ring-red-500' // Apply error styles
+                        : 'border-gray-300 dark:border-gray-600',
+                    className,
+                    'min-h-[80px]', // Added a minimum height
+                )}
+                {...props}
+            />
+            {error && (
+                <p className="text-red-500 text-sm mt-1">{error}</p> // Error message
+            )}
+        </div>
     );
-  }
-);
-Textarea.displayName = "Textarea";
+};
 
-export { Textarea };
+export default Textarea;
