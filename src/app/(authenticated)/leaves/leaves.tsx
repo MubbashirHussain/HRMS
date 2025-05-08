@@ -409,7 +409,7 @@ const LeavesPage = () => {
             buttons: (request) => (
                 <>
                     <Button
-                        variant="outline"
+                        variant="link"
                         size="default"
                         onClick={() => handleEdit(request)}
                         className="text-blue-500 hover:bg-blue-50/50"
@@ -417,8 +417,8 @@ const LeavesPage = () => {
                         <Edit className="h-4 w-4" />
                     </Button>
                     <Button
-                        variant="outline"
-                        size="icon"
+                        variant="link"
+                        size="default"
                         onClick={() => handleDelete(request)}
                         className="text-red-500 hover:bg-red-50/50"
                     >

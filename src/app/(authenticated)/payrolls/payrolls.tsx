@@ -420,16 +420,16 @@ const PayrollsPage = () => {
             buttons: (payroll) => (
                 <>
                     <Button
-                        variant="outline"
-                        size="icon"
+                        variant="link"
+                        size="default"
                         onClick={() => handleEdit(payroll)}
                         className="text-blue-500 hover:bg-blue-50/50"
                     >
                         <Edit className="h-4 w-4" />
                     </Button>
                     <Button
-                        variant="outline"
-                        size="icon"
+                        variant="link"
+                        size="default"
                         onClick={() => handleDelete(payroll)}
                         className="text-red-500 hover:bg-red-50/50"
                     >

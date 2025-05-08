@@ -264,7 +264,7 @@ const AnnouncementsPage = () => {
                                         )}
                                         <div className="absolute top-2 right-2 space-x-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <Button
-                                                variant="outline"
+                                                variant="link"
                                                 size="icon"
                                                 onClick={() => handleEdit(announcement)}
                                                 className="text-blue-500 hover:bg-blue-50/50"
@@ -272,7 +272,7 @@ const AnnouncementsPage = () => {
                                                 <Edit className="h-4 w-4" />
                                             </Button>
                                             <Button
-                                                variant="outline"
+                                                variant="link"
                                                 size="icon"
                                                 onClick={() => handleDelete(announcement)}
                                                 className="text-red-500 hover:bg-red-50/50"

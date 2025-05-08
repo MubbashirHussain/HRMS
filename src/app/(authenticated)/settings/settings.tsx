@@ -7,6 +7,7 @@ import {
     CardHeader,
     CardTitle,
     CardDescription,
+    CardContent,
 } from '@/components/ui/base/card';
 import {
     Settings,
@@ -267,7 +268,7 @@ const SettingsPage = () => {
                         >
                             Cancel
                         </Button>
-                        <Button variant="destructive" onClick={handleLogout}>
+                        <Button variant="link" onClick={handleLogout}>
                             Logout
                         </Button>
                     </DialogFooter>
