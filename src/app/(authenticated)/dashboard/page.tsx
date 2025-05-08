@@ -353,7 +353,7 @@ const DashboardPage = () => {
 
             <Separator className="my-8 bg-blue-200" />
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 gap-8 scroll-auto">
                 {/* Announcements Section */}
                 <div>
                     <Heading level={2} className="text-2xl font-semibold mb-4 text-blue-700 dark:text-blue-300">Announcements</Heading>
@@ -371,35 +371,6 @@ const DashboardPage = () => {
                 </div>
 
                 {/* Employee and Task Section */}
-                <div>
-                    <div className="mb-8">
-                        <Heading level={2} className="text-2xl font-semibold mb-4 text-blue-700 dark:text-blue-300">Employees</Heading>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {employees.map((employee) => (
-                                <EmployeeCard key={employee.id} employee={employee} />
-                            ))}
-                        </div>
-                        <div className="mt-4">
-                            <Button variant="outline" className="text-blue-500 hover:bg-blue-50/50 hover:text-blue-600">
-                                View All Employees
-                            </Button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <Heading level={2} className="text-2xl font-semibold mb-4 text-blue-700 dark:text-blue-300">Tasks</Heading>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            {tasks.map((task) => (
-                                <TaskCard key={task.id} task={task} />
-                            ))}
-                        </div>
-                        <div className="mt-4">
-                            <Button variant="outline" className="text-blue-500 hover:bg-blue-50/50 hover:text-blue-600">
-                                View All Tasks
-                            </Button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     );
