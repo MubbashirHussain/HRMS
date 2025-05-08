@@ -13,7 +13,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/base/button"; // Assuming Button is correctly located
 import { twMerge } from "tailwind-merge";
-import { ScrollArea, Sheet, SheetContent, SheetTrigger } from "../base/sheet";
+import { Sheet, SheetContent, SheetTrigger } from "../base/sheet";
+import { ScrollArea } from "../base/scroll-area";
 
 // ===============================
 // Types & Interfaces

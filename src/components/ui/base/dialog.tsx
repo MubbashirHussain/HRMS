@@ -37,7 +37,7 @@ const Dialog = ({
 }: DialogProps) => {
     const [isOpen, setIsOpen] = useState(open);
     const dialogRef = useRef<HTMLDivElement>(null);
-    const triggerRef = useRef<HTMLElement>(null);
+    const triggerRef = useRef<HTMLDivElement>(null);
 
     // Sync internal state with prop
     useEffect(() => {
