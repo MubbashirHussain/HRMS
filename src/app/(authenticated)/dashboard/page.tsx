@@ -357,7 +357,7 @@ const DashboardPage = () => {
                 {/* Announcements Section */}
                 <div>
                     <Heading level={2} className="text-2xl font-semibold mb-4 text-blue-700 dark:text-blue-300">Announcements</Heading>
-                    <ScrollArea className="h-[400px] w-full rounded-md">
+                    <ScrollArea className="h-[400px] w-full rounded-md hide-scroll">
                         <div className="p-4">
                             {announcements.length > 0 ? (
                                 announcements.map((announcement) => (

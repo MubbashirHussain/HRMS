@@ -14,7 +14,7 @@ const ScrollArea = forwardRef<HTMLDivElement, ScrollAreaProps>(
                 className={twMerge('relative overflow-hidden', className)}
                 {...props}
             >
-                <div className="relative h-full w-full overflow-auto">
+                <div className="relative h-full w-full overflow-auto hide-scroll">
                     {children}
                 </div>
             </div>
