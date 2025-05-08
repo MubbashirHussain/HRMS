@@ -343,7 +343,7 @@ const EmployeesPage = () => {
                 >
                   Cancel
                 </Button>
-                <Button variant="destructive" onClick={confirmDelete}>
+                <Button variant="link" onClick={confirmDelete}>
                   Delete
                 </Button>
               </div>

@@ -170,7 +170,7 @@ const CustomTable = <T,>({
                     <TableHeader>
                         <TableRow>
                             {config.headers.map((header) => (
-                                <TableHead key={header.key}>
+                                <TableHead key={header.key as string}>
                                     {header.isSortable ? (
                                         <Button
                                             variant="ghost"
@@ -198,7 +198,7 @@ const CustomTable = <T,>({
                                     transition={{ duration: 0.2 }}
                                 >
                                     {config.headers.map((header) => (
-                                        <TableCell key={header.key}>
+                                        <TableCell key={header.key as string}>
                                             {header.renderCell
                                                 ? header.renderCell(item)
                                                 : (item[header.key] as React.ReactNode)}
@@ -615,7 +615,7 @@ const LeavesPage = () => {
                                 >
                                     Cancel
                                 </Button>
-                                <Button variant="destructive" onClick={confirmDelete}>
+                                <Button variant="link" onClick={confirmDelete}>
                                     Delete
                                 </Button>
                             </div>
@@ -653,7 +653,7 @@ const LeavesPage = () => {
                                 id="startDate"
                                 type="date"
                                 value={createFormData.startDate || ''}
-                                onChange={(e) => setCreateFormData({ ...createFormData, startDate: e.target.value})}
+                                onChange={(e) => setCreateFormData({ ...createFormData, startDate: e.target.value })}
                                 className="col-span-3"
                             />
                         </div>

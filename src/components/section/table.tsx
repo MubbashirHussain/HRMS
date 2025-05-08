@@ -120,7 +120,7 @@ export const TableComponent = <T,>({
                     <TableHeader>
                         <TableRow>
                             {config.headers.map((header) => (
-                                <TableHead key={header.key}>
+                                <TableHead key={header.key as string}>
                                     {header.isSortable ? (
                                         <Button
                                             variant="ghost"
@@ -148,7 +148,7 @@ export const TableComponent = <T,>({
                                     transition={{ duration: 0.2 }}
                                 >
                                     {config.headers.map((header) => (
-                                        <TableCell key={header.key}>
+                                        <TableCell key={header.key as string}>
                                             {header.renderCell
                                                 ? header.renderCell(item)
                                                 : (item[header.key] as React.ReactNode)}
