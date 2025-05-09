@@ -11,12 +11,14 @@ import {
 } from "@/components/ui/base/card";
 import { twMerge } from "tailwind-merge";
 import { Button } from "@/components/ui/base/button";
+import { useRouter } from "next/navigation";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,21 +28,22 @@ const LoginPage = () => {
     // Simulate an authentication delay
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
+      router.push('/dashboard')
 
-      if (username && password) {
-        // In a real app, you'd make an API call here.
-        console.log("Logging in with:", { username, password });
-        // For this example, we'll just simulate success.
-        // Replace this with your actual authentication logic
-        if (username === "admin" && password === "password") {
-          // Redirect to a dashboard or main page upon successful login
-          window.location.href = "/dashboard"; //  Replace '/dashboard'
-        } else {
-          setError("Invalid credentials. Please try again.");
-        }
-      } else {
-        setError("Please fill in all fields.");
-      }
+      // if (username && password) {
+      //   // In a real app, you'd make an API call here.
+      //   console.log("Logging in with:", { username, password });
+      //   // For this example, we'll just simulate success.
+      //   // Replace this with your actual authentication logic
+      //   if (username === "admin" && password === "password") {
+      //     // Redirect to a dashboard or main page upon successful login
+      //     window.location.href = "/dashboard"; //  Replace '/dashboard'
+      //   } else {
+      //     setError("Invalid credentials. Please try again.");
+      //   }
+      // } else {
+      //   setError("Please fill in all fields.");
+      // }
     } catch (err) {
       setError("An error occurred. Please try again.");
     } finally {
