@@ -1,6 +1,15 @@
 import React from 'react';
 import { twMerge } from "tailwind-merge";
 
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  variant?: 'default' | 'outline' | 'ghost' | 'link';
+  size?: 'default' | 'sm' | 'lg' | 'icon'; // Added 'icon' size
+  className?: string;
+  disabled?: boolean; // Added disabled prop
+  [key: string]: any;
+}
+
 const Button = ({
   children,
   variant,
@@ -8,14 +17,7 @@ const Button = ({
   className,
   disabled, // Added disabled prop
   ...props
-}: {
-  children: React.ReactNode;
-  variant?: 'default' | 'outline' | 'ghost' | 'link';
-  size?: 'default' | 'sm' | 'lg' | 'icon'; // Added 'icon' size
-  className?: string;
-  disabled?: boolean; // Added disabled prop
-  [key: string]: any;
-}) => {
+}: Props) => {
   const baseClasses = "inline-flex items-center justify-center rounded-md font-medium transition-colors";
 
   const variantClasses = {
