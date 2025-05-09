@@ -15,10 +15,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "HRMS System",
-  description: "A Human Resource Management System for managing employees and departments.",
-  keywords: ["HRMS", "human resources", "employee management", "department management", "Next.js", "MERN"],
+  description:
+    "A Human Resource Management System for managing employees and departments.",
+  keywords: [
+    "HRMS",
+    "human resources",
+    "employee management",
+    "department management",
+    "Next.js",
+    "MERN",
+  ],
+ icons: {
+    icon: '/favicon.ico',
+    apple: '/android-chrome-192x192.png',
+  },
+  manifest: '/site.webmanifest', // 👈 This line is important
 };
-
 
 export default function RootLayout({
   children,
@@ -27,6 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
