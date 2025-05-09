@@ -427,7 +427,7 @@ const AnnouncementsPage = () => {
                                 >
                                     Cancel
                                 </Button>
-                                <Button variant="destructive" onClick={confirmDelete}>
+                                <Button variant="link" onClick={confirmDelete}>
                                     Delete
                                 </Button>
                             </div>

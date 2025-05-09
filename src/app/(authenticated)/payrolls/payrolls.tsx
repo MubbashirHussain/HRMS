@@ -158,7 +158,7 @@ const CustomTable = <T,>({
                     <TableHeader>
                         <TableRow>
                             {config.headers.map((header) => (
-                                <TableHead key={header.key}>
+                                <TableHead key={header.key as string}>
                                     {header.isSortable ? (
                                         <Button
                                             variant="ghost"
@@ -186,7 +186,7 @@ const CustomTable = <T,>({
                                     transition={{ duration: 0.2 }}
                                 >
                                     {config.headers.map((header) => (
-                                        <TableCell key={header.key}>
+                                        <TableCell key={header.key as string}>
                                             {header.renderCell
                                                 ? header.renderCell(item)
                                                 : (item[header.key] as React.ReactNode)}
@@ -641,7 +641,7 @@ const PayrollsPage = () => {
                                 >
                                     Cancel
                                 </Button>
-                                <Button variant="destructive" onClick={confirmDelete}>
+                                <Button variant="link" onClick={confirmDelete}>
                                     Delete
                                 </Button>
                             </div>
